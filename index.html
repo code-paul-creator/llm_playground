@@ -2234,39 +2234,6 @@ const STORAGE_HISTORY_NAME = "newton_ai_history_v2";
 
 const MODEL_CATALOG = [
   {
-    id: "llama-3.3-70b-versatile",
-    name: "Llama 3.3 70B Versatile",
-    developer: "Meta",
-    context_window: 128000,
-    max_output: 32768,
-    reasoning: "none",
-    pricing: { input: 0.59, output: 0.79 },
-    description: "Flagship open weights model for complex reasoning and coding.",
-    featured: true
-  },
-  {
-    id: "llama-3.1-8b-instant",
-    name: "Llama 3.1 8B Instant",
-    developer: "Meta",
-    context_window: 128000,
-    max_output: 8192,
-    reasoning: "none",
-    pricing: { input: 0.05, output: 0.08 },
-    description: "Sub-second inference for real-time text and classification.",
-    featured: true
-  },
-  {
-    id: "deepseek-r1-distill-llama-70b",
-    name: "DeepSeek R1 Distill 70B",
-    developer: "DeepSeek / Meta",
-    context_window: 128000,
-    max_output: 32768,
-    reasoning: "always",
-    pricing: { input: 0.75, output: 0.99 },
-    description: "Distilled reasoning model producing full thought chains in <think>.",
-    featured: true
-  },
-  {
     id: "openai/gpt-oss-120b",
     name: "GPT-OSS 120B (Preview)",
     developer: "OpenAI / Groq",
@@ -2288,39 +2255,6 @@ const MODEL_CATALOG = [
     webSearch: true,
     pricing: { input: 0.20, output: 0.30 },
     description: "High-throughput reasoning model with internal deliberation.",
-    featured: false
-  },
-  {
-    id: "qwen/qwen3.8-27b",
-    name: "Qwen 3.8 27B",
-    developer: "Alibaba Cloud",
-    context_window: 64000,
-    max_output: 8192,
-    reasoning: "optional",
-    pricing: { input: 0.35, output: 0.45 },
-    description: "Multilingual powerhouse with optional reasoning support.",
-    featured: true
-  },
-  {
-    id: "mixtral-8x7b-32768",
-    name: "Mixtral 8x7B MoE",
-    developer: "Mistral AI",
-    context_window: 32768,
-    max_output: 8192,
-    reasoning: "none",
-    pricing: { input: 0.24, output: 0.24 },
-    description: "Mixture of Experts architecture for versatile tasks.",
-    featured: false
-  },
-  {
-    id: "gemma2-9b-it",
-    name: "Gemma 2 9B IT",
-    developer: "Google",
-    context_window: 8192,
-    max_output: 4096,
-    reasoning: "none",
-    pricing: { input: 0.10, output: 0.10 },
-    description: "Instruction-tuned lightweight model by Google.",
     featured: false
   }
 ];
@@ -2407,7 +2341,7 @@ const DEFAULT_PROMPT_LIBRARY = [
 const state = {
   apiKey: "",
   activeView: "panePlayground",
-  selectedModel: "llama-3.3-70b-versatile",
+  selectedModel: "openai/gpt-oss-120b",
   conversation: [],          // [{role, content, model, metrics}]
   isStreaming: false,
   abortController: null,
