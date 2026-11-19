@@ -2632,7 +2632,7 @@ function clearKey() {
 function updateConnectionBadge() {
   const pill = $("connStatus");
   const text = $("connStatusText");
-  if (state.apiKey) {
+  if (true) {
     pill.className = "conn-status-pill connected";
     text.textContent = "Groq Connected";
     pill.title = "API key active. Click to open Settings.";
@@ -2880,12 +2880,6 @@ async function sendMessage(isRegenerate = false) {
   const userText = isRegenerate ? "" : promptInput.value.trim();
 
   if (!isRegenerate && !userText) return;
-  if (!state.apiKey) {
-    showToast("Please enter your Groq API key in Settings first.", "error");
-    switchView("paneSettings");
-    $("settingsApiKeyInput")?.focus();
-    return;
-  }
 
   if (!isRegenerate) {
     state.conversation.push({ role: "user", content: userText });
@@ -2928,10 +2922,10 @@ async function sendMessage(isRegenerate = false) {
   let usage = null;
 
   try {
-    const resp = await fetch(`${API_BASE}/chat/completions`, {
+    const resp = await fetch(`/api/chat`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${state.apiKey}`,
+        "x-user-key": state.apiKey || "",
         "Content-Type": "application/json"
       },
       body: JSON.stringify(body),
@@ -3196,11 +3190,6 @@ async function runArenaBattle() {
     showToast("Please enter a prompt to battle models.", "error");
     return;
   }
-  if (!state.apiKey) {
-    showToast("Configure your Groq API key in Settings first.", "error");
-    switchView("paneSettings");
-    return;
-  }
 
   const modelA = $("arenaModelA").value;
   const modelB = $("arenaModelB").value;
@@ -3251,10 +3240,10 @@ async function streamArenaModel(modelConfig, promptText) {
   };
 
   try {
-    const resp = await fetch(`${API_BASE}/chat/completions`, {
+    const resp = await fetch(`/api/chat`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${state.apiKey}`,
+        "x-user-key": state.apiKey || "",
         "Content-Type": "application/json"
       },
       body: JSON.stringify(payload)
@@ -4011,8 +4000,8 @@ document.addEventListener("DOMContentLoaded", () => {
     res.style.color = "var(--text-muted)";
     const start = performance.now();
     try {
-      const resp = await fetch(`${API_BASE}/models`, {
-        headers: { "Authorization": `Bearer ${state.apiKey || $("settingsApiKeyInput").value}` }
+      const resp = await fetch(`/api/chat`, {
+        headers: { "x-user-key": state.apiKey || $("settingsApiKeyInput").value }
       });
       const ping = Math.round(performance.now() - start);
       if (resp.ok) {
